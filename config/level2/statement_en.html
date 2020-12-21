@@ -1,0 +1,187 @@
+<div id="statement_back" class="statement_back" style="display: none"></div>
+<div class="statement-body">
+  <div style="color: #7cc576; 
+  background-color: rgba(124, 197, 118,.1);
+  padding: 20px;
+  margin-right: 15px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  text-align: left;">
+    <div style="text-align: center; margin-bottom: 6px">
+      <img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png" />
+    </div>
+
+    <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">
+      Summary of new rules
+    </p>
+    <span class="statement-league-alert-content">
+      Now you can upgrade your soldier's level!
+      See the updated statement for details.</span>
+  </div>
+  <!-- GOAL -->
+  <div class="statement-section statement-goal">
+    <h1>
+      <span class="icon icon-goal">&nbsp;</span>
+      <span>The Goal</span>
+    </h1>
+    <div class="statement-goal-content">
+      The goal is to finish the opponent's army or having more bucks at the end of game.
+  </div>
+</div>
+<!-- END -->
+<!--- RULES --->
+<div class="statement-section statement-rules">
+    <h1>
+      <span class="icon icon-rules">&nbsp;</span>
+      <span>Rules</span>
+    </h1>
+    <div>
+      <div class="statement-rules-content">
+        In this game you have to control your army <const>1</const>-<const>3</const> soldiers depending upon the league. To understand game mechanics you need to understand few things given below.<br><br>
+<hr>
+<br>
+<strong>SOLDIER</strong>
+<div>
+A <const>Soldier</const> is movable unit which is defined by 6 integers :-<br>
+<var>ownerId</var> - The ID of player who owns this soldier.<br>
+<var>x</var> - The position X of this soldier.<br>
+<var>y</var> - The position Y of this soldier.<br>
+<var>soldierId</var> - The unique ID of soldier.<br>
+<var>level</var> - The level of the soldier.<br>
+<var>direction</var> - The Direction soldier is facing 0 = UP, 1 = LEFT , 2 = DOWN, 3 = RIGHT.<br>
+A <const>Soldier</const> can perform <action>MOVE</action> or <action>ATTACK</action> tasks.
+</div><br>
+<strong>BLOCK</strong>
+<div>
+A <const>Block</const> is a single cell in the map defined by 3 integers :-<br>
+<var>blockOwner</var> - The ID of player who owns this block.<br>
+<var>x</var> - The position X of this block.<br>
+<var>y</var> - The position Y of this block.<br>
+</div><br>
+<strong>SOLDIER MOVABLE SITES</strong>
+<div>
+<const>Soldier movable sites</const> are blocks where a soldier can move which based on direction where is soldier facing, for example: If soldier is facing <b>UP</b> then soldier <b>can't move DOWN</b> and <b>can move UP, RIGHT and LEFT</b>.<br>
+      <img src="https://media.discordapp.net/attachments/735393675567431700/790261512915779614/faceup.jpg" /><br>
+Suppose in this picture the soldier is facing <b>UP</b> side and <font color = "green">GREEN</font> coloured tiles are soldier movable sites and soldier can't move on <font color="red">RED</font> coloured tile.<br>
+So, Basically soldier just can't move opposite side of where its facing.
+</div>
+<br>
+<strong>SOLDIER ATTACKING SITES</strong>
+<div>
+<const>Soldier attacking sites</const> are blocks on which a soldier can attack which is again based on the direction soldier is facing.A soldier can attack on the blocks which are in range of distance 2 from soldier and are not in back side of direction.<br>
+      <img src="https://media.discordapp.net/attachments/735393675567431700/790261070694318090/faceup.jpg" /><br>
+Suppose in this picture the soldier is facing <b>UP</b> side and <font color = "green">GREEN</font> coloured tiles are soldier attacking sites.<br>
+
+      <img src="https://media.discordapp.net/attachments/735393675567431700/790261115791605790/facedown.jpg" /><br>
+And suppose in this picture the soldier is facing <b>DOWN</b> side and <font color = "green">GREEN</font> coloured tiles are soldier attacking sites.<br>
+</div>
+<br>
+<hr><br>
+<b>ACTIONS:-</b><br>
+<br>
+<strong>WAIT</strong><br>
+You can use this command to do nothing. The action looks like - '<action>WAIT</action>' your income won't be affected by this.
+<br><br>
+<strong>MOVE</strong><br>
+       You can use this command to move your soldiers but remember a soldier can only move at <b>SOLDIER MOVABLE SITES</b>(Explained above).The command for the action looks like - '<action>MOVE ID DIRECTION</action>' In which ID is the unique identifier of soldier and DIRECTION can be any of <const>UP DOWN LEFT RIGHT</const>.<br><br>
+<strong>ATTACK</strong><br>
+You can use this command to attack on any opponent soldier which is in range of 2 tiles and it should be one of the <b>SOLDIER ATTACKING SITES</b>(Explained above) <font style="color: #7cc576;
+                    background-color: rgba(124, 197, 118,.1);
+                    padding: 2px;">and level of opponent's soldier should be <= to your soldier's level</font>, It costs you <const>35</const> Bucks to attack. The command for the action looks like - '<action>ATTACK ID OPPONENT_SOLDIER_ID</action>' In which ID is the unique identifier of soldier and  OPPONENT_SOLDIER_ID is the id of opponent soldier on which you have to attack on.<br><br>
+<div style="color: #7cc576;
+                    background-color: rgba(124, 197, 118,.1);
+                    padding: 2px;">
+                    <strong>UPGRADE</strong><br>
+                    You can use this command to upgrade your soldiers level which costs you <const>25</const> bucks.See the statement update in Attack statement for the effects of level.The command for the action looks like - '<action>UPGRADE SOLDIER_ID</action>' In which SOLDIER_ID is the unique id of your soldier.<br>
+           </div><br>
+<hr>
+      </div>
+    </div>
+  </div>
+ 
+ 
+<!--- END --->
+<div class="statement-victory-conditions">
+                <div class="icon victory"></div>
+                <div class="blk">
+                    <div class="title">Victory Conditions</div>
+                    <div class="text">
+                        <ul style="padding-bottom: 0;">
+                            <li>All opponent's soldiers died.</li>
+                            <li>After <const>200</const> turns, you have more Bucks than your opponent.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="statement-lose-conditions">
+                <div class="icon lose"></div>
+                <div class="blk">
+                    <div class="title">Lose Conditions</div>
+                    <div class="text">
+                        <ul style="padding-bottom: 0;">
+                            <li>You fail to provide a valid command in time.</li>
+                            <li>You provide a unrecognized command.</li>
+                            <li>If your opponent satisfies any of victoy conditions.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+ 
+ <div class="statement-section statement-protocol">
+    <h1>
+      <span class="icon icon-protocol">&nbsp;</span>
+      <span>Game Input</span>
+    </h1>
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Initial input</div>
+      <div class="text"><ul><li>int <var>MyID</var> - Your unique player Id which could be <const>0</const> or <const>1</const>.</li>
+<li>int <var>MapSize</var> - The size of board, Map = MapSize*MapSize.</li></div>
+    </div><!-- END -->
+ 
+    <!-- Protocol block -->
+    <div class="blk">
+      <div class="title">Input per turn</div>
+      <div class="text">
+       <ul>
+       <li>int <var>MyBucks</var> -  Your present money or bucks.</li>
+       <li>int <var>OppBucks</var> -  Opponent's present money or bucks.</li>
+       <li><span>Next <var>MapSize</var> * <var>MapSize</var> lines each <strong>BLOCK</strong> in the board represented by 3 integers:-</span>
+       <br></li>
+        <p>&nbsp&nbspint <var>BlockOwner</var> - The owner's player id of this block.</p>
+       <p>&nbsp&nbspint <var>x</var> -  This block's position x.</p>
+       <p>&nbsp&nbspint <var>y</var> -  This block's position y.</p>
+<br>
+       <li>int <var>activeSoldierCount</var> - Total no. of active soldier in the game.</li>
+       <li>Next <var>activeSoldierCount</var> lines each <strong>SOLDIER</strong> reprenseted by 6 integers:-</li>
+       <p>&nbsp&nbsp int <var>ownerId</var> - The owner's player id of this soldier.</p>
+       <p>&nbsp&nbsp int <var>x</var> - This soldier's position x.</p>
+       <p>&nbsp&nbsp int <var>y</var> - This soldier's position y.</p>
+       <p>&nbsp&nbsp int <var>soldierId</var> - The unique identifier of soldier.</p>
+       <p>&nbsp&nbsp int <var>level</var> - The level of the soldier..</p>
+       <p>&nbsp&nbsp int <var>direction</var> - The side where the soldier is facing.</p><br>
+       </ul><!-- END -->
+ 
+ 
+<div class="blk">
+      <div class="title">Output</div>
+      <div class="text">
+       <p>A single line from one of the following commands:-
+       <ul>
+       <li><action>WAIT optional_message</li>
+       <li><action>MOVE <var>soldierID</var> <var> Direction </var> optional_message</action></li>
+       <li><action>ATTACK <var>soldierID</var> <var>soldierId to attack on</var> optional_message</action></li>
+       <li><action>UPGRADE <var>soldierID</var> optional_message</action></li>
+</ul>
+      </div>
+    </div>
+</div>
+<div class="blk">
+      <div class="title">Constraints</div>
+      <div class="text">Your code should response under <const>100 ms</const>.</div>
+<div class="text">Game will automatically end after <const>200 turns</const>.</div>
+     <div class="text"><var>MapSize</var> = <const>4</const> For first league, <const>5</const> For second league, <const>10</const> For third league.</div>
+<div class="text"><var>MyId</var> = <const>0</const> or <const>1.</const></div>
+    </div>
+  </div>
+<!-- END -->

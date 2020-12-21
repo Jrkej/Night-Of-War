@@ -1,0 +1,34 @@
+read MyId:int
+read MapSize:int
+gameloop
+read MyBucks:int
+read OppBucks:int
+loop MapSize
+loop MapSize read blockOwner:int x:int y:int
+read activeSoldierCount:int
+loop activeSoldierCount read ownerId:int x:int y:int soldierId:int level:int direction:int
+write WAIT
+
+STATEMENT
+Jrke's special
+-Kill your enemy soldiers or Have more bucks than your enemy at end of game
+
+INPUT
+MyId: Your unique player Id
+MapSize: the size of map MapSize*MapSize
+MyBucks: Your Money
+OppBucks: Opponent Money
+blockOwner: The playerId of this box owned player
+x: This block's position x
+y: This block's position y
+x: This soldier's position x
+y: This soldier's position y
+level: Level of the soldier ignore for first league
+playerId: The id of player
+activeSoldierCount: Total no. of active soldier in the game
+ownerId: owner of the soldier
+soldierId: The unique identifier of soldier
+direction: The side where the soldier is facing 0 = UP, 1 = LEFT , 2 = DOWN, 3 = RIGHT
+
+OUTPUT
+print any of actions - WAIT | MOVE <soldierId> <direction> | ATTACK <soldierID> <soldierId to attack on> | LATER > UPGRADE <id> | DEGRADE <opponent id> | SUICIDE <id>
