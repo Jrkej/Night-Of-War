@@ -171,6 +171,7 @@ public class Animation {
     }
     private void update_soldiers(Game game) {
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
+    		soldiers[i].setImage("S" + (game.ActiveSoldiers.get(i).ownerId+1) + "_" + game.ActiveSoldiers.get(i).direction + ".png");
     		if (game.ActiveSoldiers.get(i).alive == 0) soldiers[i].setAlpha(0);
     		else soldiers[i].setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
     	}
@@ -178,7 +179,7 @@ public class Animation {
     private void generate_soldiers(Game game) {
     	this.soldiers = new Sprite[game.ActiveSoldiers.size()];
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
-    		soldiers[i] = this.graphics.createSprite().setImage("S"+(game.ActiveSoldiers.get(i).ownerId+1)+".png").setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
+    		soldiers[i] = this.graphics.createSprite().setImage("S" + (game.ActiveSoldiers.get(i).ownerId+1) + "_" + game.ActiveSoldiers.get(i).direction + ".png").setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
     	}
     }
 }

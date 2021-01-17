@@ -57,23 +57,24 @@ A <const>Block</const> is a single cell in the map defined by 3 integers :-<br>
 <var>blockOwner</var> - The ID of player who owns this block.<br>
 <var>x</var> - The position X of this block.<br>
 <var>y</var> - The position Y of this block.<br>
+It gives you <const>2</const> Bucks for eack Block you owned every turn.
 </div><br>
 <strong>SOLDIER MOVABLE SITES</strong>
 <div>
-<const>Soldier movable sites</const> are blocks where a soldier can move which based on direction where is soldier facing, for example: If soldier is facing <b>UP</b> then soldier <b>can't move DOWN</b> and <b>can move UP, RIGHT and LEFT</b>.<br>
-      <img src="https://media.discordapp.net/attachments/735393675567431700/790261512915779614/faceup.jpg" /><br>
-Suppose in this picture the soldier is facing <b>UP</b> side and <font color = "green">GREEN</font> coloured tiles are soldier movable sites and soldier can't move on <font color="red">RED</font> coloured tile.<br>
-So, Basically soldier just can't move opposite side of where its facing.
+  <const>Soldier movable sites</const> are blocks where a soldier can move which based on direction where is soldier facing, for example: If soldier is facing <b>UP</b> then soldier <b>can't move DOWN</b> and <b>can move UP, RIGHT and LEFT</b>.<br>
+  <img src="https://cdn-games.codingame.com/community/3721214-1607311051570/edebb9414fe61659e2fcb0b77b4c2fec1da2ed63fe19a79bebaf7aa690d1d67d.JPG" /><br>
+Suppose in this picture the soldier is facing <b>UP</b> side, Then it can move on <font color = "green">GREEN</font> coloured tiles and can't move on <font color="red">RED</font> coloured tiles.<br>
+So, basically the soldier just can't move in the opposite direction of where it is facing.
 </div>
 <br>
 <strong>SOLDIER ATTACKING SITES</strong>
 <div>
-<const>Soldier attacking sites</const> are blocks on which a soldier can attack which is again based on the direction soldier is facing.A soldier can attack on the blocks which are in range of distance 2 from soldier and are not in back side of direction.<br>
-      <img src="https://media.discordapp.net/attachments/735393675567431700/790261070694318090/faceup.jpg" /><br>
-Suppose in this picture the soldier is facing <b>UP</b> side and <font color = "green">GREEN</font> coloured tiles are soldier attacking sites.<br>
+<const>Soldier attacking sites</const> are blocks on which a soldier can attack which is again based on the direction soldier is facing. A soldier can attack on the blocks which are in range of distance 2 from soldier and are not in back side of direction.<br>
+  <img src="https://cdn-games.codingame.com/community/3721214-1607311051570/c4de7cf9fe507e5af7f8d5930dbc326748f59e294ff37cb4f5dec4e1a2e77c8b.JPG" /><br>
+Suppose in this picture the soldier is facing <b>UP</b>, then <font color = "green">GREEN</font> coloured tiles are soldier attacking sites.<br>
 
-      <img src="https://media.discordapp.net/attachments/735393675567431700/790261115791605790/facedown.jpg" /><br>
-And suppose in this picture the soldier is facing <b>DOWN</b> side and <font color = "green">GREEN</font> coloured tiles are soldier attacking sites.<br>
+  <img src="https://cdn-games.codingame.com/community/3721214-1607311051570/91df125d645ed955938d4e12e08391c8db242fc11509626884729167825c3e8b.JPG" /><br>
+And suppose in this picture the soldier is facing <b>DOWN</b>, then <font color = "green">GREEN</font> coloured tiles are soldier attacking sites.<br>
 </div>
 <br>
 <hr><br>
@@ -84,16 +85,12 @@ You can use this command to do nothing. The action looks like - '<action>WAIT</a
 <br><br>
 <strong>MOVE</strong><br>
        You can use this command to move your soldiers but remember a soldier can only move at <b>SOLDIER MOVABLE SITES</b>(Explained above).The command for the action looks like - '<action>MOVE ID DIRECTION</action>' In which ID is the unique identifier of soldier and DIRECTION can be any of <const>UP DOWN LEFT RIGHT</const>.<br><br>
-<strong>ATTACK</strong><br>
-You can use this command to attack on any opponent soldier which is in range of 2 tiles and it should be one of the <b>SOLDIER ATTACKING SITES</b>(Explained above) <font style="color: #7cc576;
-                    background-color: rgba(124, 197, 118,.1);
-                    padding: 2px;">and level of opponent's soldier should be <= to your soldier's level</font>, It costs you <const>35</const> Bucks to attack. The command for the action looks like - '<action>ATTACK ID OPPONENT_SOLDIER_ID</action>' In which ID is the unique identifier of soldier and  OPPONENT_SOLDIER_ID is the id of opponent soldier on which you have to attack on.<br><br>
-<div style="color: #7cc576;
-                    background-color: rgba(124, 197, 118,.1);
-                    padding: 2px;">
-                    <strong>UPGRADE</strong><br>
-                    You can use this command to upgrade your soldiers level which costs you <const>25</const> bucks.See the statement update in Attack statement for the effects of level.The command for the action looks like - '<action>UPGRADE SOLDIER_ID</action>' In which SOLDIER_ID is the unique id of your soldier.<br>
-           </div><br>
+       <strong>ATTACK</strong><br>
+       You can use this command to attack on any opponent soldier which is in range of 2 tiles and it should be one of the <b>SOLDIER ATTACKING SITES</b>(Explained above) and the level of opponent's soldier should be less than or equal to your soldier's level. It costs you <const>35</const> Bucks to attack. The command for the action looks like - '<action>ATTACK ID OPPONENT_SOLDIER_ID</action>' In which ID is the unique identifier of soldier and  OPPONENT_SOLDIER_ID is the id of the opponent soldier that you want to attack.<br><br>
+       <div >
+                           <strong>UPGRADE</strong><br>
+                           You can use this command to upgrade your soldiers level which costs you <const>25</const> bucks.See the statement update in Attack statement for the effects of level.The command for the action looks like - '<action>UPGRADE SOLDIER_ID</action>' In which SOLDIER_ID is the unique id of your soldier.<br>
+                  </div><br>
 <hr>
       </div>
     </div>
@@ -121,7 +118,7 @@ You can use this command to attack on any opponent soldier which is in range of 
                         <ul style="padding-bottom: 0;">
                             <li>You fail to provide a valid command in time.</li>
                             <li>You provide a unrecognized command.</li>
-                            <li>If your opponent satisfies any of victoy conditions.</li>
+                            <li>If your opponent satisfies any of victory conditions.</li>
                         </ul>
                     </div>
                 </div>
@@ -148,12 +145,12 @@ You can use this command to attack on any opponent soldier which is in range of 
        <li>int <var>OppBucks</var> -  Opponent's present money or bucks.</li>
        <li><span>Next <var>MapSize</var> * <var>MapSize</var> lines each <strong>BLOCK</strong> in the board represented by 3 integers:-</span>
        <br></li>
-        <p>&nbsp&nbspint <var>BlockOwner</var> - The owner's player id of this block.</p>
-       <p>&nbsp&nbspint <var>x</var> -  This block's position x.</p>
-       <p>&nbsp&nbspint <var>y</var> -  This block's position y.</p>
+        <p>&nbsp&nbsp int <var>BlockOwner</var> - The owner's player id of this block.</p>
+       <p>&nbsp&nbsp int <var>x</var> -  This block's position x.</p>
+       <p>&nbsp&nbsp int <var>y</var> -  This block's position y.</p>
 <br>
        <li>int <var>activeSoldierCount</var> - Total no. of active soldier in the game.</li>
-       <li>Next <var>activeSoldierCount</var> lines each <strong>SOLDIER</strong> reprenseted by 6 integers:-</li>
+       <li>Next <var>activeSoldierCount</var> lines each <strong>SOLDIER</strong> reprensented by 6 integers:-</li>
        <p>&nbsp&nbsp int <var>ownerId</var> - The owner's player id of this soldier.</p>
        <p>&nbsp&nbsp int <var>x</var> - This soldier's position x.</p>
        <p>&nbsp&nbsp int <var>y</var> - This soldier's position y.</p>
@@ -178,7 +175,7 @@ You can use this command to attack on any opponent soldier which is in range of 
 </div>
 <div class="blk">
       <div class="title">Constraints</div>
-      <div class="text">Your code should response under <const>100 ms</const>.</div>
+      <div class="text">Your code should respond under <const>100 ms</const>.</div>
 <div class="text">Game will automatically end after <const>200 turns</const>.</div>
      <div class="text"><var>MapSize</var> = <const>4</const> For first league, <const>5</const> For second league, <const>10</const> For third league.</div>
 <div class="text"><var>MyId</var> = <const>0</const> or <const>1.</const></div>
