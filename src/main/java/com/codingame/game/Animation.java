@@ -153,7 +153,6 @@ public class Animation {
     
     private void update_msg_scores(Game state) {
     	this.player_msg[state.CurrPlayerIndex].setText(state.MESSAGE);
-    	this.player_msg[1 - state.CurrPlayerIndex].setText(state.MESSAGE);
     	this.player_scr[0].setText(String.valueOf(state.scores[0]));
     	this.player_scr[1].setText(String.valueOf(state.scores[1]));
     }
