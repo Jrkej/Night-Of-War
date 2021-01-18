@@ -53,7 +53,7 @@ public class Game {
 
 	private static final int MAPSIZE_LEVEL1 = 4;
     private static final int MAPSIZE_LEVEL2 = 5;
-    private static final int MAPSIZE_LEVEL3 = 10;
+    private static final int MAPSIZE_LEVEL3 = 8;
     private static final int TOTALSOLDIERS_LEVEL1 = 1;
     private static final int TOTALSOLDIERS_LEVEL2 = 2;
     private static final int TOTALSOLDIERS_LEVEL3 = 3;
