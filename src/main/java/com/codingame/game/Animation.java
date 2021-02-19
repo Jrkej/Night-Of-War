@@ -22,7 +22,7 @@ public class Animation {
     private final static String FONT_FAMILY = "Dialog";
     private final static String NAME_FONT = "Dialog";
     private final static int FONT_SIZE = 40;
-    private final static int FONT_SIZE_TEXT = 20;
+    private final static int FONT_SIZE_TEXT = 19;
     private final static int MARGIN_X = 20;
     private final static int MARGIN_Y = 12;
     private final int RANGE_X = SCREEN_WIDTH - (2 * BOX_START_X);
@@ -158,15 +158,15 @@ public class Animation {
     }
     
     private void create_texts() {
-    	this.player_msg[0] = this.graphics.createText("").setFillColor(MSG_TEXT_COLOR).setFontSize(FONT_SIZE_TEXT).setX(((BOX_START_X - TEXT_WIDTH) / 2) + MARGIN_X).setY(300 + MARGIN_Y).setFontFamily(FONT_FAMILY);
-    	this.player_msg[1] = this.graphics.createText("").setFillColor(MSG_TEXT_COLOR).setFontSize(FONT_SIZE_TEXT).setX((SCREEN_WIDTH - ((BOX_START_X - TEXT_WIDTH) / 2) - TEXT_WIDTH) + MARGIN_X).setY(300 + MARGIN_Y).setFontFamily(FONT_FAMILY);
-    	this.player_scr[0] = this.graphics.createText("").setFillColor(this.colorA).setFontSize(FONT_SIZE).setX((((BOX_START_X - SCORE_WIDTH) / 2) + (MARGIN_X / 2))+70).setY(220 + (MARGIN_Y / 2)).setFontFamily(FONT_FAMILY);
-    	this.player_scr[1] = this.graphics.createText("").setFillColor(this.colorB).setFontSize(FONT_SIZE).setX((SCREEN_WIDTH - ((BOX_START_X - SCORE_WIDTH) / 2) + (MARGIN_X / 2)) + 70 - SCORE_WIDTH).setY(220 + (MARGIN_Y / 2)).setFontFamily(FONT_FAMILY);
+    	this.player_msg[0] = this.graphics.createText("").setFillColor(MSG_TEXT_COLOR).setFontSize(FONT_SIZE_TEXT).setX(((BOX_START_X - TEXT_WIDTH) / 2 + (TEXT_WIDTH / 2)) + MARGIN_X - 15).setY(315 + MARGIN_Y).setFontFamily(FONT_FAMILY).setAnchor(0.5);
+    	this.player_msg[1] = this.graphics.createText("").setFillColor(MSG_TEXT_COLOR).setFontSize(FONT_SIZE_TEXT).setX((SCREEN_WIDTH - ((BOX_START_X - TEXT_WIDTH) / 2) - (TEXT_WIDTH / 2)) + MARGIN_X - 15).setY(315 + MARGIN_Y).setFontFamily(FONT_FAMILY).setAnchor(0.5);
+    	this.player_scr[0] = this.graphics.createText("").setFillColor(this.colorA).setFontSize(FONT_SIZE).setX((((BOX_START_X - SCORE_WIDTH) / 2) + (MARGIN_X / 2)) + 60 + (SCORE_WIDTH / 2)).setY(240 + (MARGIN_Y / 2)).setFontFamily(FONT_FAMILY).setAnchor(0.5);
+    	this.player_scr[1] = this.graphics.createText("").setFillColor(this.colorB).setFontSize(FONT_SIZE).setX((SCREEN_WIDTH - ((BOX_START_X - SCORE_WIDTH) / 2) + (MARGIN_X / 2)) + 60 - (SCORE_WIDTH / 2)).setY(240 + (MARGIN_Y / 2)).setFontFamily(FONT_FAMILY).setAnchor(0.5);
     }
     
     private void create_nameplate() {
-    	this.graphics.createText(this.P0.toUpperCase()).setFillColor(this.colorA).setFontFamily(NAME_FONT).setFontSize(60).setX((BOX_START_X - PIC_WIDTH) / 2).setY(5);
-    	this.graphics.createText(this.P1.toUpperCase()).setFillColor(this.colorB).setFontFamily(NAME_FONT).setFontSize(60).setX(SCREEN_WIDTH - ((BOX_START_X - PIC_WIDTH) / 2) - PIC_WIDTH).setY(5);
+    	this.graphics.createText(this.P0.toUpperCase()).setFillColor(this.colorA).setFontFamily(NAME_FONT).setFontSize(60).setX((BOX_START_X - PIC_WIDTH) / 2 + (PIC_WIDTH / 2)).setY(5).setAnchorX(0.5);
+    	this.graphics.createText(this.P1.toUpperCase()).setFillColor(this.colorB).setFontFamily(NAME_FONT).setFontSize(60).setX(SCREEN_WIDTH - ((BOX_START_X - PIC_WIDTH) / 2) - (PIC_WIDTH / 2)).setY(5).setAnchorX(0.5);
     }
     private void update_soldiers(Game game) {
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {

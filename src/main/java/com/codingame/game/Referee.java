@@ -93,7 +93,7 @@ public class Referee extends AbstractReferee {
 			a = "TIE";
 			b = "TIE";
 		}
-		String[] Text = {a + " - " + (game.scores[0] > -2?(game.scores[0] > -1?String.valueOf(game.scores[0]):"ARMY EXTINCTED!"):"ERROR!!!"), b + " - " + (game.scores[1] > -2?(game.scores[1] > -1?String.valueOf(game.scores[1]):"ARMY EXTINCTED!"):"ERROR!!!")};
+		String[] Text = {a + " - " + (game.scores[0] > -2?(game.scores[0] > -1?String.valueOf(game.scores[0]):"ARMY FINISHED!"):"ERROR!!!"), b + " - " + (game.scores[1] > -2?(game.scores[1] > -1?String.valueOf(game.scores[1]):"ARMY FINISHED!"):"ERROR!!!")};
 		endScreenModule.setScores(game.scores, Text);
 	}
 	private void SendInputs(Player cilent, int turn) {
