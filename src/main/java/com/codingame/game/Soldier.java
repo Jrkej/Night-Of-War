@@ -64,4 +64,8 @@ public class Soldier {
 		this.y += 1;
 		this.direction = "DOWN";
 	}
+	
+	public String tooltip() {
+		return "SOLDIER\n------------------\nId : " + String.valueOf(this.soldierId) + "\nOwnerId : " + String.valueOf(this.ownerId) + "\nx : " + String.valueOf(this.x) + "\ny : " + String.valueOf(this.y) + "\ndirection : " + this.direction + "\nlevel : " + String.valueOf(this.level);
+	}
 }

@@ -6,12 +6,14 @@ import com.codingame.gameengine.core.AbstractReferee;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.endscreen.EndScreenModule;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 import com.google.inject.Inject;
 
 public class Referee extends AbstractReferee {
 	
 	@Inject private MultiplayerGameManager<Player> gameManager;
 	@Inject private GraphicEntityModule graphicEntityModule;
+	@Inject TooltipModule tooltips;
 	@Inject
 	private EndScreenModule endScreenModule;
 	private final int MAX_TURNS = 200;
@@ -30,7 +32,7 @@ public class Referee extends AbstractReferee {
 			game = new Game(gameManager.getLeagueLevel());
 			game.initialise();
 			SDK = new Animation(this.graphicEntityModule, game.MapSize, gameManager.getPlayer(0).getColorToken(), gameManager.getPlayer(1).getColorToken(), gameManager.getPlayer(0), gameManager.getPlayer(1));
-			SDK.initialise(game);
+			SDK.initialise(game, tooltips);
 			
 		} catch (Exception e) {
             e.printStackTrace();
@@ -54,7 +56,7 @@ public class Referee extends AbstractReferee {
             if (result.ToolTip.size() > 0) {
             	gameManager.addTooltip(cilent, result.ToolTip.get(0));
             }
-            SDK.turn(game);
+            SDK.turn(game, tooltips);
             if (turn == this.MAX_TURNS || game.check_if_game_ended()) {
             	cilent.setScore(game.scores[game.CurrPlayerIndex]);
             	cilent_opponent.setScore(game.scores[1 - game.CurrPlayerIndex]);

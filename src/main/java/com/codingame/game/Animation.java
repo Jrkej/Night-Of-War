@@ -1,7 +1,9 @@
 package com.codingame.game;
 
+
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.*;
+import com.codingame.gameengine.module.tooltip.TooltipModule;
 
 public class Animation {
 	
@@ -47,11 +49,12 @@ public class Animation {
     private Sprite[] soldiers;
     private Rectangle[] player_text = new Rectangle[2];
     private Rectangle[] player_score = new Rectangle[2];
+    private Rectangle[][] blocks;
     private Circle[][][] BLOCK_OWNERS;
     private Text[] player_msg = new Text[2];
     private Text[] player_scr = new Text[2];
     private GraphicEntityModule graphics;
-    
+   
     public Animation(GraphicEntityModule graphics, int Size, int colora, int colorb, Player player0, Player player1) {
         this.graphics = graphics;
         this.boardSize = Size;
@@ -64,9 +67,10 @@ public class Animation {
         this.AVATAR_B = player1.getAvatarToken();
         this.P0 = player0.getNicknameToken();
         this.P1 = player1.getNicknameToken();
+        this.blocks = new Rectangle[this.boardSize][this.boardSize];
     }
     
-    public void initialise(Game game) {
+    public void initialise(Game game, TooltipModule tooltips) {
     	this.graphics.createSprite().setImage("background.jpg").setBaseWidth(SCREEN_WIDTH).setBaseHeight(SCREEN_HEIGHT);
     	this.graphics.createRectangle().setX(BOX_START_X).setY(BOX_START_Y).setWidth(SCREEN_WIDTH - (2 * BOX_START_X)).setHeight(SCREEN_HEIGHT - (2 * BOX_START_Y)).setFillColor(this.BOX_COLOR);
     	this.create_box();
@@ -81,13 +85,15 @@ public class Animation {
     	soldier[1] = this.graphics.createSprite().setImage("S2.png").setX(BOX_START_X+970).setY(500);
     	this.generate_soldiers(game);
     	this.create_nameplate();
+    	this.create_tooltips(tooltips, game);
     	this.logo = this.graphics.createSprite().setImage("logo.png").setBaseWidth(1000).setBaseHeight(500).setX(460).setY(300).setAlpha(0);
     }
-    public void turn(Game state) {
+    public void turn(Game state, TooltipModule tooltips) {
     	this.update_opacity(state);
     	this.update_msg_scores(state);
     	this.update_owners_sdk(state);
     	this.update_soldiers(state);
+    	this.update_tooltips(state, tooltips);
     }
     public void end() {
     	this.logo.setAlpha(1);
@@ -135,7 +141,7 @@ public class Animation {
     	this.player_text[0] = this.graphics.createRectangle().setX((BOX_START_X - TEXT_WIDTH) / 2).setY(300).setWidth(TEXT_WIDTH).setHeight(TEXT_HEIGHT).setFillColor(TEXT_COLOR).setLineColor(this.colorA).setLineWidth(MESS_LINE_WIDTH);
     	this.player_text[1] = this.graphics.createRectangle().setX(SCREEN_WIDTH - ((BOX_START_X - TEXT_WIDTH) / 2) - TEXT_WIDTH).setY(300).setWidth(TEXT_WIDTH).setHeight(TEXT_HEIGHT).setFillColor(TEXT_COLOR).setLineColor(this.colorB).setLineWidth(MESS_LINE_WIDTH);
     }
-    
+
     private void update_opacity(Game state) {
     	this.player_logo[state.CurrPlayerIndex].setAlpha(1);
     	this.player_logo[1 - state.CurrPlayerIndex].setAlpha(.4);
@@ -157,6 +163,22 @@ public class Animation {
     	this.player_scr[1].setText(String.valueOf(state.scores[1]));
     }
     
+    private void update_tooltips(Game state, TooltipModule tooltips) {
+    	for (int x = 0; x < this.boardSize; x++) {
+    		for (int y = 0; y< this.boardSize; y++) {
+    			Rectangle TextPlace = blocks[x][y];
+    			tooltips.setTooltipText(TextPlace, "BLOCK\n------------------\nOwnerId : " + String.valueOf(state.MAP[x][y].owner) + "\nx : " + String.valueOf(x) + "\ny : " + String.valueOf(y));
+    		}
+    	}
+    	for (Soldier sold: state.ActiveSoldiers) {
+    		if (sold.alive == 1) {
+    			Rectangle TextPlace = blocks[sold.x][sold.y];
+    			tooltips.setTooltipText(TextPlace, sold.tooltip());
+    		}
+    	}
+    	
+    }
+
     private void create_texts() {
     	this.player_msg[0] = this.graphics.createText("").setFillColor(MSG_TEXT_COLOR).setFontSize(FONT_SIZE_TEXT).setX(((BOX_START_X - TEXT_WIDTH) / 2 + (TEXT_WIDTH / 2)) + MARGIN_X - 15).setY(315 + MARGIN_Y).setFontFamily(FONT_FAMILY).setAnchor(0.5);
     	this.player_msg[1] = this.graphics.createText("").setFillColor(MSG_TEXT_COLOR).setFontSize(FONT_SIZE_TEXT).setX((SCREEN_WIDTH - ((BOX_START_X - TEXT_WIDTH) / 2) - (TEXT_WIDTH / 2)) + MARGIN_X - 15).setY(315 + MARGIN_Y).setFontFamily(FONT_FAMILY).setAnchor(0.5);
@@ -168,6 +190,22 @@ public class Animation {
     	this.graphics.createText(this.P0.toUpperCase()).setFillColor(this.colorA).setFontFamily(NAME_FONT).setFontSize(60).setX((BOX_START_X - PIC_WIDTH) / 2 + (PIC_WIDTH / 2)).setY(5).setAnchorX(0.5);
     	this.graphics.createText(this.P1.toUpperCase()).setFillColor(this.colorB).setFontFamily(NAME_FONT).setFontSize(60).setX(SCREEN_WIDTH - ((BOX_START_X - PIC_WIDTH) / 2) - (PIC_WIDTH / 2)).setY(5).setAnchorX(0.5);
     }
+    
+    private void create_tooltips(TooltipModule tooltips, Game state) {
+    	for (int x = 0; x < this.boardSize; x++) {
+    		for (int y = 0; y< this.boardSize; y++) {
+    			this.blocks[x][y] = this.graphics.createRectangle().setWidth(this.BlockSizeX).setHeight(this.BlockSizeY).setX(BOX_START_X + (x * this.BlockSizeX)).setY(BOX_START_Y + (y * this.BlockSizeY)).setAlpha(0);
+    			tooltips.setTooltipText(this.blocks[x][y], "BLOCK\n------------------\nOwnerId : " + String.valueOf(state.MAP[x][y].owner) + "\nx : " + String.valueOf(x) + "\ny : " + String.valueOf(y));
+    		}
+    	}
+    	for (Soldier sold: state.ActiveSoldiers) {
+    		if (sold.alive == 1) {
+    			Rectangle TextPlace = blocks[sold.x][sold.y];
+    			tooltips.setTooltipText(TextPlace, sold.tooltip());
+    		}
+    	}
+    }
+   
     private void update_soldiers(Game game) {
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
     		soldiers[i].setImage("S" + (game.ActiveSoldiers.get(i).ownerId+1) + "_" + game.ActiveSoldiers.get(i).direction + ".png");
@@ -175,6 +213,7 @@ public class Animation {
     		else soldiers[i].setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
     	}
     }
+
     private void generate_soldiers(Game game) {
     	this.soldiers = new Sprite[game.ActiveSoldiers.size()];
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
