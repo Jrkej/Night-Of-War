@@ -49,6 +49,7 @@ public class Animation {
     private Sprite[] soldiers;
     private Rectangle[] player_text = new Rectangle[2];
     private Rectangle[] player_score = new Rectangle[2];
+    private Rectangle[] player_info = new Rectangle[2];
     private Rectangle[][] blocks;
     private Circle[][][] BLOCK_OWNERS;
     private Text[] player_msg = new Text[2];
@@ -78,6 +79,8 @@ public class Animation {
     	this.update_owners_sdk(game);
     	this.player_logo[0] = this.graphics.createSprite().setImage(this.AVATAR_A).setX((BOX_START_X - PIC_WIDTH) / 2).setY(75).setBaseWidth(PIC_WIDTH).setBaseHeight(PIC_WIDTH);
     	this.player_logo[1] = this.graphics.createSprite().setImage(this.AVATAR_B).setX(SCREEN_WIDTH - ((BOX_START_X - PIC_WIDTH) / 2) - PIC_WIDTH).setY(75).setBaseWidth(PIC_WIDTH).setBaseHeight(PIC_WIDTH);
+    	this.player_info[0] = this.graphics.createRectangle().setX(((BOX_START_X - SCORE_WIDTH) / 2) - 95).setY(5).setWidth(TEXT_WIDTH).setHeight(300 + TEXT_HEIGHT).setAlpha(0);
+    	this.player_info[1] = this.graphics.createRectangle().setX(SCREEN_WIDTH - ((BOX_START_X - SCORE_WIDTH) / 2) + 70 - TEXT_WIDTH).setY(5).setWidth(TEXT_WIDTH).setHeight(300 + TEXT_HEIGHT).setAlpha(0);
     	this.create_textboxes();
     	this.create_score_displayer();
     	this.create_texts();
@@ -170,13 +173,18 @@ public class Animation {
     			tooltips.setTooltipText(TextPlace, "BLOCK\n------------------\nOwnerId : " + String.valueOf(state.MAP[x][y].owner) + "\nx : " + String.valueOf(x) + "\ny : " + String.valueOf(y));
     		}
     	}
+    	int ALo = 0;
+    	int ALt = 0;
     	for (Soldier sold: state.ActiveSoldiers) {
     		if (sold.alive == 1) {
+    			if (sold.ownerId == 0) ALo += 1;
+    			else ALt += 1;
     			Rectangle TextPlace = blocks[sold.x][sold.y];
     			tooltips.setTooltipText(TextPlace, sold.tooltip());
     		}
     	}
-    	
+    	tooltips.setTooltipText(this.player_info[0], "PLAYER\n-----------------\nPlayerId : 0\nBucks : " + String.valueOf(state.scores[0]) + "\nAliveSoldiers : " + String.valueOf(ALo) + (state.CurrPlayerIndex == 0?("\nMessage : " + state.MESSAGE):""));
+    	tooltips.setTooltipText(this.player_info[1], "PLAYER\n-----------------\nPlayerId : 1\nBucks : " + String.valueOf(state.scores[1]) + "\nAliveSoldiers : " + String.valueOf(ALt) + (state.CurrPlayerIndex == 1?("\nMessage : " + state.MESSAGE):""));
     }
 
     private void create_texts() {
@@ -198,12 +206,18 @@ public class Animation {
     			tooltips.setTooltipText(this.blocks[x][y], "BLOCK\n------------------\nOwnerId : " + String.valueOf(state.MAP[x][y].owner) + "\nx : " + String.valueOf(x) + "\ny : " + String.valueOf(y));
     		}
     	}
+    	int ALo = 0;
+    	int ALt = 0;
     	for (Soldier sold: state.ActiveSoldiers) {
     		if (sold.alive == 1) {
+    			if (sold.ownerId == 0) ALo += 1;
+    			else ALt += 1;
     			Rectangle TextPlace = blocks[sold.x][sold.y];
     			tooltips.setTooltipText(TextPlace, sold.tooltip());
     		}
     	}
+    	tooltips.setTooltipText(this.player_info[0], "PLAYER\n-----------------\nPlayerId : 0\nBucks : " + String.valueOf(state.scores[0]) + "\nAliveSoldiers : " + String.valueOf(ALo));
+    	tooltips.setTooltipText(this.player_info[1], "PLAYER\n-----------------\nPlayerId : 1\nBucks : " + String.valueOf(state.scores[1]) + "\nAliveSoldiers : " + String.valueOf(ALt));
     }
    
     private void update_soldiers(Game game) {
