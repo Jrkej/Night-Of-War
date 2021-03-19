@@ -223,6 +223,7 @@ public class Animation {
     private void update_soldiers(Game game) {
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
     		soldiers[i].setImage("S" + (game.ActiveSoldiers.get(i).ownerId+1) + "_" + game.ActiveSoldiers.get(i).direction + ".png");
+    		this.graphics.commitEntityState(0, soldiers[i]);
     		if (game.ActiveSoldiers.get(i).alive == 0) soldiers[i].setAlpha(0);
     		else soldiers[i].setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
     	}
