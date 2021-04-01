@@ -42,11 +42,13 @@ public class Animation {
     private int colorB;
     private String AVATAR_A;
     private String AVATAR_B;
+    private String[] attackImages;
     private Sprite logo;
     private Sprite[] soldier = new Sprite[2];
     private Sprite[] player_score_image = new Sprite[2];
     private Sprite[] player_logo = new Sprite[2];
     private Sprite[] soldiers;
+    private SpriteAnimation Attack;
     private Rectangle[] player_text = new Rectangle[2];
     private Rectangle[] player_score = new Rectangle[2];
     private Rectangle[] player_info = new Rectangle[2];
@@ -69,6 +71,8 @@ public class Animation {
         this.P0 = player0.getNicknameToken();
         this.P1 = player1.getNicknameToken();
         this.blocks = new Rectangle[this.boardSize][this.boardSize];
+        this.attackImages = this.graphics.createSpriteSheetSplitter().setSourceImage("attack.png").setName("a").setWidth(128).setHeight(128).setImageCount(9).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
+        this.Attack = this.graphics.createSpriteAnimation().setImages(attackImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setAlpha(0);
     }
     
     public void initialise(Game game, TooltipModule tooltips) {
@@ -221,10 +225,16 @@ public class Animation {
     }
    
     private void update_soldiers(Game game) {
+    	this.Attack.setAlpha(0);
+    	this.graphics.commitEntityState(0, this.Attack);
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
     		soldiers[i].setImage("S" + (game.ActiveSoldiers.get(i).ownerId+1) + "_" + game.ActiveSoldiers.get(i).direction + ".png");
     		this.graphics.commitEntityState(0, soldiers[i]);
-    		if (game.ActiveSoldiers.get(i).alive == 0) soldiers[i].setAlpha(0);
+    		if (game.ActiveSoldiers.get(i).alive == 0) {
+    			if (soldiers[i].getAlpha() == 1) this.Attack.setAlpha(1).setX(soldiers[i].getX()).setY(soldiers[i].getY()).setScale(this.BlockSizeX / 126.0);
+    			this.graphics.commitEntityState(0, this.Attack);
+    			soldiers[i].setAlpha(0);
+    		}
     		else soldiers[i].setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
     	}
     }
