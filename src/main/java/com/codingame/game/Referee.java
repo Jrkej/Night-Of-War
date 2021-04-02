@@ -45,10 +45,11 @@ public class Referee extends AbstractReferee {
 		Player cilent = gameManager.getPlayer(game.CurrPlayerIndex);
 		Player cilent_opponent = gameManager.getPlayer(1 - game.CurrPlayerIndex);
 		SendInputs(cilent, turn);
+		SDK.initialiseTurn();
 		cilent.execute();
 		try {
             List<String> outputs = cilent.getOutputs();
-            turnResult result = game.play(cilent, outputs.get(0), cilent.getNicknameToken());
+            turnResult result = game.play(cilent, outputs.get(0), cilent.getNicknameToken(), SDK);
             cilent.setScore(game.scores[game.CurrPlayerIndex]);
             if (result.Summary.size() > 0) {
             	gameManager.addToGameSummary(result.Summary.get(0));

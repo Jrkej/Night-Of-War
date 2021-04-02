@@ -4,6 +4,7 @@ package com.codingame.game;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.*;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class Animation {
 	
@@ -43,12 +44,16 @@ public class Animation {
     private String AVATAR_A;
     private String AVATAR_B;
     private String[] attackImages;
+    private String[] upgradeImages;
+    private String[] degradeImages;
     private Sprite logo;
     private Sprite[] soldier = new Sprite[2];
     private Sprite[] player_score_image = new Sprite[2];
     private Sprite[] player_logo = new Sprite[2];
     private Sprite[] soldiers;
     private SpriteAnimation Attack;
+    private SpriteAnimation Upgrade;
+    private SpriteAnimation Degrade;
     private Rectangle[] player_text = new Rectangle[2];
     private Rectangle[] player_score = new Rectangle[2];
     private Rectangle[] player_info = new Rectangle[2];
@@ -72,7 +77,12 @@ public class Animation {
         this.P1 = player1.getNicknameToken();
         this.blocks = new Rectangle[this.boardSize][this.boardSize];
         this.attackImages = this.graphics.createSpriteSheetSplitter().setSourceImage("attack.png").setName("a").setWidth(128).setHeight(128).setImageCount(9).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
-        this.Attack = this.graphics.createSpriteAnimation().setImages(attackImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setAlpha(0);
+        this.upgradeImages = this.graphics.createSpriteSheetSplitter().setSourceImage("upgrade.png").setName("u").setWidth(100).setHeight(100).setImageCount(8).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
+        this.degradeImages = this.graphics.createSpriteSheetSplitter().setSourceImage("degrade.png").setName("d").setWidth(100).setHeight(100).setImageCount(8).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
+        ArrayUtils.reverse(this.degradeImages);
+        this.Attack = this.graphics.createSpriteAnimation().setImages(this.attackImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setAlpha(0);
+        this.Upgrade = this.graphics.createSpriteAnimation().setImages(this.upgradeImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setScale(this.BlockSizeX / 100).setAlpha(0);
+        this.Degrade = this.graphics.createSpriteAnimation().setImages(this.degradeImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setScale(this.BlockSizeX / 100).setAlpha(0);
     }
     
     public void initialise(Game game, TooltipModule tooltips) {
@@ -244,5 +254,22 @@ public class Animation {
     	for (int i = 0; i < game.ActiveSoldiers.size(); i++) {
     		soldiers[i] = this.graphics.createSprite().setImage("S" + (game.ActiveSoldiers.get(i).ownerId+1) + "_" + game.ActiveSoldiers.get(i).direction + ".png").setX(BOX_START_X + (game.ActiveSoldiers.get(i).x * this.BlockSizeX)).setY(BOX_START_Y + (game.ActiveSoldiers.get(i).y * this.BlockSizeY)).setBaseWidth(this.BlockSizeX).setBaseHeight(this.BlockSizeY);
     	}
+    }
+    
+    public void initialiseTurn() {
+    	this.Upgrade.setAlpha(0);
+    	this.Degrade.setAlpha(0);
+    	this.graphics.commitEntityState(0, this.Upgrade);
+    	this.graphics.commitEntityState(0, this.Degrade);
+    }
+
+    public void upgrade(int x, int y) {
+    	this.Upgrade.setAlpha(1).setX(BOX_START_X + (x * this.BlockSizeX)).setY(BOX_START_Y + (y * this.BlockSizeY));
+    	this.graphics.commitEntityState(0, this.Upgrade);
+    }
+
+    public void degrade(int x, int y) {
+    	this.Degrade.setAlpha(1).setX(BOX_START_X + (x * this.BlockSizeX)).setY(BOX_START_Y + (y * this.BlockSizeY));
+    	this.graphics.commitEntityState(0, this.Degrade);
     }
 }

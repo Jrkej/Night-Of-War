@@ -1,4 +1,5 @@
 package com.codingame.game;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,7 +109,7 @@ public class Game {
     	}
     }
     
-    public turnResult play(Player player, String move, String nickname){
+    public turnResult play(Player player, String move, String nickname, Animation SDK){
     	boolean recognise = false;
     	turnResult result = new turnResult(nickname);
     	Matcher match;
@@ -178,6 +179,7 @@ public class Game {
     			for (Soldier m: this.ActiveSoldiers) {
     				if (m.soldierId == id) {
     					m.upgrade();
+    					SDK.upgrade(m.x, m.y);
     					this.scores[this.CurrPlayerIndex] -= this.UPGRADE_COST;
     				}
     			}
@@ -197,6 +199,7 @@ public class Game {
     			for (Soldier m: this.ActiveSoldiers) {
     				if (m.soldierId == id) {
     					m.degrade();
+    					SDK.degrade(m.x, m.y);
     					this.scores[this.CurrPlayerIndex] -= this.DEGRADE_COST;
     				}
     			}
