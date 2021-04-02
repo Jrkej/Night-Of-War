@@ -344,7 +344,7 @@ public class Game {
     	if (this.scores[this.CurrPlayerIndex] < DEGRADE_COST) return false;
     	if (sold.ownerId == this.CurrPlayerIndex) return false;
     	for (Soldier s: this.ActiveSoldiers) {
-    		if (Math.abs(s.x - sold.x) + Math.abs(s.y - sold.y) <= this.MAX_ATTACK_RANGE) return true;
+    		if (Math.abs(s.x - sold.x) + Math.abs(s.y - sold.y) <= this.MAX_ATTACK_RANGE && s.alive == 1 && s.ownerId == this.CurrPlayerIndex) return true;
     	}
     	return false;
     }

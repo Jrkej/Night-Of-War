@@ -4,7 +4,6 @@ package com.codingame.game;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.*;
 import com.codingame.gameengine.module.tooltip.TooltipModule;
-import org.apache.commons.lang3.ArrayUtils;
 
 public class Animation {
 	
@@ -77,12 +76,14 @@ public class Animation {
         this.P1 = player1.getNicknameToken();
         this.blocks = new Rectangle[this.boardSize][this.boardSize];
         this.attackImages = this.graphics.createSpriteSheetSplitter().setSourceImage("attack.png").setName("a").setWidth(128).setHeight(128).setImageCount(9).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
-        this.upgradeImages = this.graphics.createSpriteSheetSplitter().setSourceImage("upgrade.png").setName("u").setWidth(100).setHeight(100).setImageCount(8).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
-        this.degradeImages = this.graphics.createSpriteSheetSplitter().setSourceImage("degrade.png").setName("d").setWidth(100).setHeight(100).setImageCount(8).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
-        ArrayUtils.reverse(this.degradeImages);
+        this.upgradeImages = this.graphics.createSpriteSheetSplitter().setSourceImage("upgrade.png").setName("u").setWidth(100).setHeight(100).setImageCount(9).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
+        this.degradeImages = this.graphics.createSpriteSheetSplitter().setSourceImage("degrade.png").setName("d").setWidth(100).setHeight(100).setImageCount(9).setImagesPerRow(1).setOrigCol(0).setOrigRow(0).split();
+        String[] Temp = new String[9];
+        for (int i = 0; i < 9; i++) Temp[i] = this.degradeImages[i];
+        for (int i = 0; i < 9; i++) this.degradeImages[i] = Temp[8 - i];
         this.Attack = this.graphics.createSpriteAnimation().setImages(this.attackImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setAlpha(0);
         this.Upgrade = this.graphics.createSpriteAnimation().setImages(this.upgradeImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setScale(this.BlockSizeX / 100).setAlpha(0);
-        this.Degrade = this.graphics.createSpriteAnimation().setImages(this.degradeImages).setX(0).setY(0).setZIndex(2).setLoop(true).setDuration(1000).play().setScale(this.BlockSizeX / 100).setAlpha(0);
+        this.Degrade = this.graphics.createSpriteAnimation().setImages(this.degradeImages).setX(0).setY(0).setZIndex(3).setLoop(true).setDuration(1000).play().setScale(this.BlockSizeX / 100).setAlpha(0);
     }
     
     public void initialise(Game game, TooltipModule tooltips) {
