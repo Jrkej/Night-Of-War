@@ -232,8 +232,8 @@ public class Game {
     	}
     	if (!recognise) {
     		result.add("GOT AN UNRECOGNISED COMMAND DEACTIVATIING PLAYER!");
-    		player.setScore(-1);
-    		this.scores[this.CurrPlayerIndex] = -1;
+    		player.setScore(-2);
+    		this.scores[this.CurrPlayerIndex] = -2;
     		player.deactivate("GOT AN UNRECOGNISED COMMAND");
     	}
     	if (message == null)
