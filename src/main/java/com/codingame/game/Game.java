@@ -243,7 +243,7 @@ public class Game {
         }
     	this.MESSAGE = message;
     		
-    	this.updatescores();
+    	if (this.scores[this.CurrPlayerIndex] >= 0) this.updatescores();
     	return result;
     }
     
