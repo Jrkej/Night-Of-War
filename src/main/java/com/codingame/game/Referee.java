@@ -58,7 +58,7 @@ public class Referee extends AbstractReferee {
             	gameManager.addTooltip(cilent, result.ToolTip.get(0));
             }
             SDK.turn(game, tooltips);
-            if (turn == this.MAX_TURNS || game.check_if_game_ended() || game.scores[0] == -1 || game.scores[1] == -1) {
+            if (turn == this.MAX_TURNS || game.check_if_game_ended() || game.scores[0] < 0 || game.scores[1] < 0) {
             	cilent.setScore(game.scores[game.CurrPlayerIndex]);
             	cilent_opponent.setScore(game.scores[1 - game.CurrPlayerIndex]);
             	SDK.end();
