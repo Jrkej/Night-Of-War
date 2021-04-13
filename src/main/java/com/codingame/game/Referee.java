@@ -59,6 +59,7 @@ public class Referee extends AbstractReferee {
             }
             SDK.turn(game, tooltips);
             if (turn == this.MAX_TURNS || game.check_if_game_ended() || game.scores[0] < 0 || game.scores[1] < 0) {
+            	game.check_if_game_ended();
             	cilent.setScore(game.scores[game.CurrPlayerIndex]);
             	cilent_opponent.setScore(game.scores[1 - game.CurrPlayerIndex]);
             	SDK.end();
