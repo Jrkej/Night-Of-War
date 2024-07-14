@@ -300,7 +300,7 @@ public class Game {
     	for (Soldier a: this.ActiveSoldiers) {
     		if (a.soldierId == mid) sold = a;
     	}
-    	if (sold.alive == 0) return false;
+    	if (sold.alive == 0 || sold.ownerId != this.CurrPlayerIndex) return false;
     	if (!this.IS_ATTACK_PLAYABLE) return false;	
     	for (Soldier s: this.ActiveSoldiers) {
     		if (s.soldierId == id) {
